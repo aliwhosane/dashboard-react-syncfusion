@@ -11,10 +11,16 @@ import { Dashboard, Employee } from "./pages";
 import { useContextState } from "./contexts/ContextProvider";
 
 const App = () => {
-  const { activeMenu } = useContextState();
+  const {
+    activeMenu,
+    isThemeSettingsOpen,
+    setIsThemeSettingsOpen,
+    currentColor,
+    currentMode,
+  } = useContextState();
   return (
     <>
-      <div>
+      <div className={currentMode === "dark" ? "dark" : "light"}>
         <Router>
           <div className="flex relative dark:bg-main-dark-bg">
             <div className="fixed right-4 bottom-4">
@@ -22,7 +28,11 @@ const App = () => {
                 <button
                   type="button"
                   className="text-2xl p-3 hover:drop-shadow-sm hover:bg-light-gray text-white"
-                  style={{ background: "gray", borderRadius: "50%" }}
+                  style={{
+                    backgroundColor: currentColor,
+                    borderRadius: "50%",
+                  }}
+                  onClick={() => setIsThemeSettingsOpen(true)}
                 >
                   <FiSettings />
                 </button>
@@ -38,13 +48,14 @@ const App = () => {
               </div>
             )}
             <div
-              className={`dark:bg-main-bg w-full min-h-screen bg-main-bg
-                ${activeMenu ? " md:ml-64" : "flex-2"}`}
+              className={`dark:bg-main-dark-bg w-full min-h-screen  bg-slate-100
+                ${activeMenu ? "md:ml-64" : "flex-2"}`}
             >
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
                 <Navbar />
               </div>
               <div>
+                {isThemeSettingsOpen && <ThemeSettings />}
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/dashboard" element={<Dashboard />} />

@@ -8,3 +8,5 @@ export { default as ThemeSettings } from "./ThemeSettings";
 export { default as Chat } from "./Chat";
 export { default as Cart } from "./Cart";
 export { default as UserProfile } from "./UserProfile";
+export { default as SparklineGraph } from "./SparklineGraph";
+export { default as StackedGraph } from "./StackedGraph";

@@ -10,7 +10,7 @@ import { links } from "../data/dummy";
 import { useContextState } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu } = useContextState();
+  const { activeMenu, setActiveMenu, currentColor } = useContextState();
   const activeLink = `flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2`;
   const normalLink = `flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-gray-700 text-md m-2 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray`;
 
@@ -50,6 +50,13 @@ const Sidebar = () => {
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
+                    style={({ isActive }) => {
+                      return {
+                        backgroundColor: isActive
+                          ? currentColor
+                          : "transparent",
+                      };
+                    }}
                   >
                     {subLink.icon}
                     <span className="capitalize">{subLink.name}</span>
